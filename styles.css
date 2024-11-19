@@ -1,0 +1,17 @@
+.paw {
+  width: 60px;
+  height: 60px;
+}
+
+body {
+  background-color: #b3d4e3;
+}
+
+h1 {
+  color: #ffffff;
+  font-size: 100px;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
