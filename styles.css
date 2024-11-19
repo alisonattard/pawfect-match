@@ -1,12 +1,13 @@
 .paw {
-  width: 60px;
-  height: 60px;
+  width: 30px;
+  height: 30px;
+  padding: 3px; /* Added padding */
 }
 
 body {
-  background-color: #b3d4e3;
+  background-color: #d6ccc2;
 }
-
+/* 
 h1 {
   color: #ffffff;
   font-size: 100px;
@@ -14,4 +15,49 @@ h1 {
   margin: 0;
   padding: 0;
   text-align: center;
+} */
+
+nav {
+  background-color: white;
+  padding: 10px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.navtext {
+  color: #463733;
+  text-decoration: none;
+  font-family: Tahoma, sans-serif;
+  font-size: 18px; /* Adjust the size as needed */
+  display: flex;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.navtitle {
+  color: #463733;
+  text-decoration: none;
+  font-family: Tahoma, sans-serif;
+  font-size: 25px; /* Adjust the size as needed */
+  display: flex;
+  align-items: center;
+}
+
+nav ul {
+  list-style-type: none;
+  display: flex;
+  justify-content: space-around;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  margin-top: 60px; /* Adjust this value if needed */
+}
+
+li {
+  padding: 0;
 }
