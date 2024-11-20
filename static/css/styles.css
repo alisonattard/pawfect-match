@@ -64,7 +64,7 @@ li {
   width: 70%; /* Increased width */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
-  background-color: white;
+  background-color: #fdf6f3;
   position: relative; /* Set relative position */
   overflow: hidden; /* Ensure content does not overflow */
 }
@@ -115,15 +115,16 @@ input[type="file"] {
   margin-bottom: 30px;
   padding: 10px;
   width: 60%;
-  border: 1px solid #ccc;
+  border: 2px solid #ccc;
   border-radius: 5px;
+  background-color: white;
 }
 
 input[type="text"] {
   margin-bottom: 30px;
   padding: 10px;
   width: 60%;
-  border: 1px solid #ccc;
+  border: 2px solid #ccc;
   border-radius: 5px;
 }
 
@@ -147,6 +148,7 @@ button:hover {
 }
 
 fieldset {
+  background-color: white;
   margin: 40px;
 }
 
@@ -185,7 +187,7 @@ select {
   margin-right: 20px;
   padding: 10px;
   width: 70%;
-  border: 1px solid #ccc;
+  border: 2px solid #ccc;
   border-radius: 5px;
 }
 
