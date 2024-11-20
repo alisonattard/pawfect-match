@@ -1,14 +1,17 @@
 from flask import Flask, request, jsonify
 from flask_sqlalchemy import SQLAlchemy
+import os
 
 app = Flask(__name__)
+
+# Configure the database URI
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:///data.db')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(app)
 
 @app.route('/home.html', methods=['GET'])
 def home():
     return app.send_static_file('home.html')
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
 
 @app.route('/submit', methods=['POST'])
 def submit_data():
@@ -36,10 +39,6 @@ def not_found(e):
 def server_error(e):
     return jsonify({'error': 'Internal server error'}), 500
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
-
 class UserRequest(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     input = db.Column(db.String(200), nullable=False)
@@ -48,3 +47,7 @@ class UserRequest(db.Model):
 @app.before_first_request
 def create_tables():
     db.create_all()
+
+# Run the application
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
