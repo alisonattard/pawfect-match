@@ -6,16 +6,8 @@
 
 body {
   background-color: #d6ccc2;
+  margin-top: 60px; /* Adjust this value if needed */
 }
-/* 
-h1 {
-  color: #ffffff;
-  font-size: 100px;
-  font-weight: bold;
-  margin: 0;
-  padding: 0;
-  text-align: center;
-} */
 
 nav {
   background-color: white;
@@ -27,6 +19,7 @@ nav {
   width: 100%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
 .navtext {
   color: #463733;
   text-decoration: none;
@@ -40,10 +33,11 @@ nav {
 .navtitle {
   color: #463733;
   text-decoration: none;
-  font-family: Tahoma, sans-serif;
+  font-family: "Courier New", Courier, monospace;
   font-size: 25px; /* Adjust the size as needed */
   display: flex;
   align-items: center;
+  font-weight: bold;
 }
 
 nav ul {
@@ -54,10 +48,92 @@ nav ul {
   padding: 0;
 }
 
-body {
-  margin-top: 60px; /* Adjust this value if needed */
-}
-
 li {
   padding: 0;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin: 20px auto;
+  margin-top: 100px; /* Add distance from the nav bar */
+  width: 70%; /* Increased width */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  background-color: white;
+  position: relative; /* Set relative position */
+  overflow: hidden; /* Ensure content does not overflow */
+}
+
+.cat {
+  width: 16%;
+  height: auto;
+  position: absolute;
+  bottom: 0; /* Align to the bottom of the container */
+  left: 9%;
+  transform: translateX(-50%);
+  transition: transform 0.3s ease; /* Smooth transition */
+}
+
+.cat:hover {
+  transform: translateX(-50%) scale(1.1); /* Enlarge on hover */
+}
+
+.dog {
+  width: 40%;
+  height: auto;
+  position: absolute;
+  bottom: 0; /* Align to the bottom of the container */
+  left: 91%;
+  transform: translateX(-50%);
+  transition: transform 0.3s ease; /* Smooth transition */
+}
+
+.dog:hover {
+  transform: translateX(-50%) scale(1.1); /* Enlarge on hover */
+}
+label {
+  font-family: Tahoma, sans-serif;
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+input[type="file"] {
+  margin-bottom: 10px;
+  padding: 10px;
+  width: 60%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+input[type="text"] {
+  margin-bottom: 10px;
+  padding: 10px;
+  width: 60%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #8a817c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #7a716c;
 }

@@ -18,5 +18,37 @@
         <li><a class="navtext" href="customer.html">Customer View</a></li>
       </ul>
     </nav>
+    <div class="form-container">
+      <img src="cat.png" class="cat" alt="Cat Image" />
+      <form action="/upload" method="post" enctype="multipart/form-data">
+        <label for="fileUpload">Upload an image (optional):</label>
+        <input type="file" id="fileUpload" name="fileUpload" accept="image/*" />
+        <button type="submit">Upload</button>
+      </form>
+      <form action="/generate-description" method="post">
+        <label for="descriptionInput">Add keywords or description:</label>
+        <input
+          type="text"
+          id="descriptionInput"
+          name="descriptionInput"
+          placeholder="Add an initial description or keywords"
+        />
+        <button type="submit">Generate Description</button>
+        <img src="dog.png" class="dog" alt="Dog Image" />
+      </form>
+    </div>
   </body>
 </html>
+<script>
+  document.querySelector(".cat").addEventListener("click", function () {
+    document.querySelector(".dog").style.transition = "opacity 0.5s";
+    document.querySelector(".dog").style.opacity = "0.5";
+    document.querySelector(".cat").style.opacity = "1";
+  });
+
+  document.querySelector(".dog").addEventListener("click", function () {
+    document.querySelector(".cat").style.transition = "opacity 0.5s";
+    document.querySelector(".cat").style.opacity = "0.5";
+    document.querySelector(".dog").style.opacity = "1";
+  });
+</script>
