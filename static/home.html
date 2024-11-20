@@ -4,14 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="static/css/styles.css" />
   </head>
   <body>
     <nav>
       <ul class="nav-list">
         <li>
           <a class="navtitle">
-            The Pawfect Match <img class="paw" src="paw.png" />
+            The Pawfect Match <img class="paw" src="static/images/paw.png" />
           </a>
         </li>
         <li><a class="navtext" href="home.html">Home</a></li>
@@ -19,7 +19,7 @@
       </ul>
     </nav>
     <div class="form-container">
-      <img src="cat.png" class="cat" alt="Cat Image" />
+      <img src="static/images/cat.png" class="cat" alt="Cat Image" />
       <form action="/upload" method="post" enctype="multipart/form-data">
         <label for="fileUpload">Upload an image (optional):</label>
         <input type="file" id="fileUpload" name="fileUpload" accept="image/*" />
@@ -34,7 +34,7 @@
           placeholder="Add an initial description or keywords"
         />
         <button type="submit">Generate Description</button>
-        <img src="dog.png" class="dog" alt="Dog Image" />
+        <img src="static/images/dog.png" class="dog" alt="Dog Image" />
       </form>
     </div>
   </body>
