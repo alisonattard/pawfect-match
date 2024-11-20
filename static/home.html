@@ -4,14 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
-    <link rel="stylesheet" href="static/css/styles.css" />
+    <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
     <nav>
       <ul class="nav-list">
         <li>
           <a class="navtitle">
-            The Pawfect Match <img class="paw" src="static/images/paw.png" />
+            The Pawfect Match <img class="paw" src="images/paw.png" />
           </a>
         </li>
         <li><a class="navtext" href="home.html">Home</a></li>
@@ -19,22 +19,122 @@
       </ul>
     </nav>
     <div class="form-container">
-      <img src="static/images/cat.png" class="cat" alt="Cat Image" />
+      <div class="image-container">
+        <img src="images/cat.png" class="cat" alt="Cat Image" />
+      </div>
       <form action="/upload" method="post" enctype="multipart/form-data">
-        <label for="fileUpload">Upload an image (optional):</label>
+        <label class="inputtitle" for="fileUpload"
+          >Upload an image (optional):</label
+        >
         <input type="file" id="fileUpload" name="fileUpload" accept="image/*" />
-        <button type="submit">Upload</button>
       </form>
       <form action="/generate-description" method="post">
-        <label for="descriptionInput">Add keywords or description:</label>
+        <label class="inputtitle" for="descriptionInput"
+          >Add keywords or description:</label
+        >
         <input
           type="text"
           id="descriptionInput"
           name="descriptionInput"
           placeholder="Add an initial description or keywords"
         />
+        <label class="inputtitle" for="nameInput">Name (optional):</label>
+        <input
+          type="text"
+          id="nameInput"
+          name="nameInput"
+          placeholder="Name (optional)"
+        />
+        <div class="form-row">
+          <label class="selecttext" for="genderSelect">Gender:</label>
+          <select id="genderSelect" name="genderSelect">
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+          <label class="selecttext" for="ageSelect">Age:</label>
+          <select id="ageSelect" name="ageSelect">
+            <option value="baby">Baby</option>
+            <option value="young">Young</option>
+            <option value="teen">Teen</option>
+            <option value="adult">Adult</option>
+            <option value="elder">Elder</option>
+          </select>
+        </div>
+        <fieldset>
+          <legend>Characteristics:</legend>
+          <div class="grid-container">
+            <label
+              ><input type="checkbox" name="characteristics" value="sweet" />
+              Sweet</label
+            >
+            <label
+              ><input type="checkbox" name="characteristics" value="curious" />
+              Curious</label
+            >
+            <label
+              ><input type="checkbox" name="characteristics" value="brave" />
+              Brave</label
+            >
+            <label
+              ><input type="checkbox" name="characteristics" value="smart" />
+              Smart</label
+            >
+            <label
+              ><input type="checkbox" name="characteristics" value="cuddly" />
+              Cuddly</label
+            >
+            <label
+              ><input type="checkbox" name="characteristics" value="friendly" />
+              Friendly</label
+            >
+            <label
+              ><input type="checkbox" name="characteristics" value="goofy" />
+              Goofy</label
+            >
+            <label
+              ><input type="checkbox" name="characteristics" value="mellow" />
+              Mellow</label
+            >
+            <label
+              ><input type="checkbox" name="characteristics" value="playful" />
+              Playful</label
+            >
+            <label
+              ><input type="checkbox" name="characteristics" value="loyal" />
+              Loyal</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="characteristics"
+                value="independent"
+              />
+              Independent</label
+            >
+            <label
+              ><input type="checkbox" name="characteristics" value="gentle" />
+              Gentle</label
+            >
+            <label
+              ><input type="checkbox" name="characteristics" value="funny" />
+              Funny</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                name="characteristics"
+                value="energetic"
+              />
+              Energetic</label
+            >
+            <label
+              ><input type="checkbox" name="characteristics" value="shy" />
+              Shy</label
+            >
+          </div>
+        </fieldset>
         <button type="submit">Generate Description</button>
-        <img src="static/images/dog.png" class="dog" alt="Dog Image" />
+        <img src="images/dog.png" class="dog" alt="Dog Image" />
       </form>
     </div>
   </body>
