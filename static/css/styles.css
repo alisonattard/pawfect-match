@@ -193,10 +193,26 @@ select {
 
 .selecttext {
   margin-bottom: 0px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 14px;
+  color: #463733; /* Changed color */
+  padding-bottom: 3px;
 }
 
 .inputtitle {
   margin-bottom: 3px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 14px;
+  color: #463733; /* Changed color */
+  padding-bottom: 3px;
+}
+.navtitle2 {
+  color: #463733;
+  text-decoration: none;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 30px; /* Adjust the size as needed */
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  padding-bottom: 20px;
 }

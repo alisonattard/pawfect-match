@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
     <link rel="stylesheet" href="css/styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
   </head>
   <body>
     <nav>
@@ -19,6 +20,9 @@
       </ul>
     </nav>
     <div class="form-container">
+      <!-- <a class="navtitle2">
+        Generate a description: <img class="paw" src="images/paw.png" />
+      </a> -->
       <div class="image-container">
         <img src="images/cat.png" class="cat" alt="Cat Image" />
       </div>
@@ -133,22 +137,33 @@
             >
           </div>
         </fieldset>
-        <button type="submit">Generate Description</button>
+        <button type="submit" id="generateButton">Generate Description</button>
         <img src="images/dog.png" class="dog" alt="Dog Image" />
       </form>
     </div>
+    <script>
+      document.querySelector(".cat").addEventListener("click", function () {
+        document.querySelector(".dog").style.transition = "opacity 0.5s";
+        document.querySelector(".dog").style.opacity = "0.5";
+        document.querySelector(".cat").style.opacity = "1";
+      });
+
+      document.querySelector(".dog").addEventListener("click", function () {
+        document.querySelector(".cat").style.transition = "opacity 0.5s";
+        document.querySelector(".cat").style.opacity = "0.5";
+        document.querySelector(".dog").style.opacity = "1";
+      });
+
+      document
+        .getElementById("generateButton")
+        .addEventListener("click", function (event) {
+          event.preventDefault(); // Prevent form submission to see the confetti
+          confetti({
+            particleCount: 100,
+            spread: 70,
+            origin: { y: 0.6 },
+          });
+        });
+    </script>
   </body>
 </html>
-<script>
-  document.querySelector(".cat").addEventListener("click", function () {
-    document.querySelector(".dog").style.transition = "opacity 0.5s";
-    document.querySelector(".dog").style.opacity = "0.5";
-    document.querySelector(".cat").style.opacity = "1";
-  });
-
-  document.querySelector(".dog").addEventListener("click", function () {
-    document.querySelector(".cat").style.transition = "opacity 0.5s";
-    document.querySelector(".cat").style.opacity = "0.5";
-    document.querySelector(".dog").style.opacity = "1";
-  });
-</script>
