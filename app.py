@@ -3,9 +3,9 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 
-@app.route('/')
+@app.route('/home.html', methods=['GET'])
 def home():
-    return "Welcome to Pawfect Match!"
+    return app.send_static_file('home.html')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
