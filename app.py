@@ -1,14 +1,14 @@
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return app.send_static_file('home.html')
+    return render_template('home.html')
 
-@app.route('/static/customer')
+@app.route('/customer')
 def customer():
-    return app.send_static_file('customer.html')
+    return render_template('customer.html')
 
 # Run the application
 if __name__ == '__main__':

@@ -4,19 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Customer View</title>
-    <link rel="stylesheet" href="static/css/styles.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
   </head>
   <body>
     <nav>
       <ul class="nav-list">
         <li>
           <a class="navtitle">
-            The Pawfect Match <img class="paw" src="static/images/paw.png" />
+            The Pawfect Match <img class="paw" src="{{ url_for('static', filename='images/paw.png') }}" />
           </a>
         </li>
-        <li><a class="navtext" href="static/home.html">Home</a></li>
+        <li><a class="navtext" href="{{ url_for('home') }}">Home</a></li>
         <li>
-          <a class="navtext" href="static/customer.html">Customer View</a>
+          <a class="navtext" href="{{ url_for('customer') }}">Customer View</a>
         </li>
       </ul>
     </nav>

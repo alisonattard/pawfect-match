@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
-    <link rel="stylesheet" href="static/css/styles.css" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
   </head>
   <body>
@@ -12,19 +12,19 @@
       <ul class="nav-list">
         <li>
           <a class="navtitle">
-            The Pawfect Match <img class="paw" src="static/images/paw.png" />
+            The Pawfect Match <img class="paw" src="{{ url_for('static', filename='css/styles.css') }}" />
           </a>
         </li>
-        <li><a class="navtext" href="/">Home</a></li>
+        <li><a class="navtext" href="{{ url_for('home') }}">Home</a></li>
         <li>
-          <a class="navtext" href="static/customer.html">Customer View</a>
+          <a class="navtext" href="{{ url_for('customer') }}">Customer View</a>
         </li>
       </ul>
     </nav>
     <div class="form-container">
       <div class="image-container">
-        <img src="static/images/cat.png" class="cat" alt="Cat Image" />
-        <img src="static/images/dog.png" class="dog" alt="Dog Image" />
+        <img src="{{ url_for('static', filename='images/cat.png') }}" class="cat" alt="Cat Image" />
+        <img src="{{ url_for('static', filename='images/dog.png') }}" class="dog" alt="Dog Image" />
       </div>
       <form id="descriptionForm">
         <label class="inputtitle" for="descriptionInput"
