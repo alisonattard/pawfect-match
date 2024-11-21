@@ -6,7 +6,7 @@ app = Flask(__name__)
 def home():
     return app.send_static_file('home.html')
 
-@app.route('/customer')
+@app.route('/static/customer')
 def customer():
     return app.send_static_file('customer.html')
 
