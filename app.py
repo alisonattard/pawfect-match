@@ -21,11 +21,14 @@ def customer():
 
 
 
+# new code these 3 if not owrk remove and uncomment following 2
+import os
+basedir = os.path.abspath(os.path.dirname(__file__))
+app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{os.path.join(basedir, "pets.db")}'
 
 
-
-# database
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///pets.db'  
+# # database
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///pets.db'  
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
