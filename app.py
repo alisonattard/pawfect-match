@@ -6,6 +6,10 @@ app = Flask(__name__)
 def home():
     return app.send_static_file('home.html')
 
+@app.route('/customer')
+def customer():
+    return app.send_static_file('customer.html')
+
 # Run the application
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
