@@ -65,6 +65,25 @@ def get_pet_for_model(pet_id):
     
     if not pet:
         return jsonify({"error": "Pet not found"}), 404
+    
+# trying to see the data in th databasee
+@app.route('/view_pets', methods=["GET"])
+def view_pets():
+    pets = Pet.query.all()  # Query all pets from the database
+    pet_list = []
+
+    # Prepare the list of pets in a readable format
+    for pet in pets:
+        pet_list.append({
+            "id": pet.id,
+            "pet_type": pet.pet_type,
+            "age": pet.age,
+            "characteristics": pet.characteristics
+        })
+
+    return jsonify(pet_list) 
+
+
 with app.app_context():
     db.create_all()
 
