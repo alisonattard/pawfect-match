@@ -63,6 +63,7 @@ def get_pet_for_model(pet_id):
     if not pet:
         return jsonify({"error": "Pet not found"}), 404
 
+db.create_all()
 
 if __name__ == "__main__":
     app.run(debug=True)
