@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
     <link rel="stylesheet" href="static/css/styles.css" />
-    <script src="static/js/confetti.browser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
   </head>
   <body>
     <nav>
@@ -22,19 +22,11 @@
       </ul>
     </nav>
     <div class="form-container">
-      <!-- <a class="navtitle2">
-        Generate a description: <img class="paw" src="static/images/paw.png" />
-      </a> -->
       <div class="image-container">
         <img src="static/images/cat.png" class="cat" alt="Cat Image" />
+        <img src="static/images/dog.png" class="dog" alt="Dog Image" />
       </div>
-      <form action="/upload" method="post" enctype="multipart/form-data">
-        <label class="inputtitle" for="fileUpload"
-          >Upload an image (optional):</label
-        >
-        <input type="file" id="fileUpload" name="fileUpload" accept="image/*" />
-      </form>
-      <form action="/generate-description" method="post">
+      <form id="descriptionForm">
         <label class="inputtitle" for="descriptionInput"
           >Add keywords or description:</label
         >
@@ -139,32 +131,56 @@
             >
           </div>
         </fieldset>
-        <button type="submit" id="generateButton">Generate Description</button>
-        <img src="static/images/dog.png" class="dog" alt="Dog Image" />
+        <button type="button" id="generateButton">Generate Description</button>
       </form>
     </div>
     <script>
+      let selectedPet = null;
+
       document.querySelector(".cat").addEventListener("click", function () {
         document.querySelector(".dog").style.transition = "opacity 0.5s";
         document.querySelector(".dog").style.opacity = "0.5";
         document.querySelector(".cat").style.opacity = "1";
+        selectedPet = "cat";
       });
 
       document.querySelector(".dog").addEventListener("click", function () {
         document.querySelector(".cat").style.transition = "opacity 0.5s";
         document.querySelector(".cat").style.opacity = "0.5";
         document.querySelector(".dog").style.opacity = "1";
+        selectedPet = "dog";
       });
 
       document
         .getElementById("generateButton")
-        .addEventListener("click", function (event) {
-          event.preventDefault(); // Prevent form submission to see the confetti
+        .addEventListener("click", function () {
           confetti({
             particleCount: 100,
             spread: 70,
             origin: { y: 0.6 },
           });
+
+          // Collect form data
+          const formData = new FormData(
+            document.getElementById("descriptionForm")
+          );
+          const data = {};
+          formData.forEach((value, key) => {
+            if (data[key]) {
+              if (!Array.isArray(data[key])) {
+                data[key] = [data[key]];
+              }
+              data[key].push(value);
+            } else {
+              data[key] = value;
+            }
+          });
+
+          // Add selected pet to data
+          data.selectedPet = selectedPet;
+
+          // Save data to localStorage
+          localStorage.setItem("formData", JSON.stringify(data));
         });
     </script>
   </body>

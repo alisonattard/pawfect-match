@@ -1,28 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Customer Page</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <header>
-        <h1>Welcome to the Customer Page</h1>
-    </header>
-    <main>
-        <section id="customer-info">
-            <h2>Customer Information</h2>
-            <!-- Customer information will go here -->
-        </section>
-        <section id="customer-orders">
-            <h2>Customer Orders</h2>
-            <!-- Customer orders will go here -->
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2023 Your Company Name. All rights reserved.</p>
-    </footer>
-    <script src="scripts.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Customer View</title>
+    <link rel="stylesheet" href="static/css/styles.css" />
+  </head>
+  <body>
+    <nav>
+      <ul class="nav-list">
+        <li>
+          <a class="navtitle">
+            The Pawfect Match <img class="paw" src="static/images/paw.png" />
+          </a>
+        </li>
+        <li><a class="navtext" href="static/home.html">Home</a></li>
+        <li>
+          <a class="navtext" href="static/customer.html">Customer View</a>
+        </li>
+      </ul>
+    </nav>
+    <div class="form-container">
+      <h2>Customer Data</h2>
+      <pre id="customerData"></pre>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const data = localStorage.getItem("formData");
+        if (data) {
+          document.getElementById("customerData").textContent = JSON.stringify(
+            JSON.parse(data),
+            null,
+            2
+          );
+        } else {
+          document.getElementById("customerData").textContent =
+            "No data available.";
+        }
+      });
+    </script>
+  </body>
 </html>
