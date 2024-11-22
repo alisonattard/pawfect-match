@@ -216,3 +216,22 @@ select {
   font-weight: bold;
   padding-bottom: 20px;
 }
+
+pre {
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  font-family: monospace;
+  white-space: pre-wrap; /* Allows the text to wrap */
+  word-wrap: break-word; /* Prevents long words from overflowing */
+  color: #333;
+}
+
+h2 {
+  margin-bottom: 3px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 14px;
+  color: #463733; /* Changed color */
+  padding-bottom: 3px;
+}
