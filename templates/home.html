@@ -4,15 +4,96 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/styles.css') }}"
+    />
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+      import {
+        getDatabase,
+        ref,
+        push,
+      } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyBGC1w5CI59ZwR4ueKHUXJ792fqm4XAgGE",
+        authDomain: "padawans-9bae0.firebaseapp.com",
+        databaseURL:
+          "https://padawans-9bae0-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "padawans-9bae0",
+        storageBucket: "padawans-9bae0.appspot.com",
+        messagingSenderId: "570564755420",
+        appId: "1:570564755420:web:fd7f79aa11560a3fb79919",
+        measurementId: "G-CR67JNKHGD",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const database = getDatabase(app);
+
+      let selectedPet = null;
+
+      document.querySelector(".cat").addEventListener("click", function () {
+        document.querySelector(".dog").style.transition = "opacity 0.5s";
+        document.querySelector(".dog").style.opacity = "0.5";
+        document.querySelector(".cat").style.opacity = "1";
+        selectedPet = "cat";
+      });
+
+      document.querySelector(".dog").addEventListener("click", function () {
+        document.querySelector(".cat").style.transition = "opacity 0.5s";
+        document.querySelector(".cat").style.opacity = "0.5";
+        document.querySelector(".dog").style.opacity = "1";
+        selectedPet = "dog";
+      });
+
+      document
+        .getElementById("generateButton")
+        .addEventListener("click", function () {
+          confetti({
+            particleCount: 100,
+            spread: 70,
+            origin: { y: 0.6 },
+          });
+
+          // Collect form data
+          const formData = new FormData(
+            document.getElementById("descriptionForm")
+          );
+          const data = {};
+          formData.forEach((value, key) => {
+            if (data[key]) {
+              if (!Array.isArray(data[key])) {
+                data[key] = [data[key]];
+              }
+              data[key].push(value);
+            } else {
+              data[key] = value;
+            }
+          });
+
+          // Add selected pet to data
+          data.selectedPet = selectedPet;
+
+          // Save data to Firebase
+          push(ref(database, "formData"), data);
+        });
+    </script>
   </head>
   <body>
     <nav>
       <ul class="nav-list">
         <li>
           <a class="navtitle">
-            The Pawfect Match <img class="paw" src="{{ url_for('static', filename='images/paw.png') }}" />
+            The Pawfect Match
+            <img
+              class="paw"
+              src="{{ url_for('static', filename='images/paw.png') }}"
+            />
           </a>
         </li>
         <li><a class="navtext" href="{{ url_for('home') }}">Home</a></li>
@@ -23,8 +104,16 @@
     </nav>
     <div class="form-container">
       <div class="image-container">
-        <img src="{{ url_for('static', filename='images/cat.png') }}" class="cat" alt="Cat Image" />
-        <img src="{{ url_for('static', filename='images/dog.png') }}" class="dog" alt="Dog Image" />
+        <img
+          src="{{ url_for('static', filename='images/cat.png') }}"
+          class="cat"
+          alt="Cat Image"
+        />
+        <img
+          src="{{ url_for('static', filename='images/dog.png') }}"
+          class="dog"
+          alt="Dog Image"
+        />
       </div>
       <form id="descriptionForm">
         <label class="inputtitle" for="descriptionInput"
@@ -134,54 +223,5 @@
         <button type="button" id="generateButton">Generate Description</button>
       </form>
     </div>
-    <script>
-      let selectedPet = null;
-
-      document.querySelector(".cat").addEventListener("click", function () {
-        document.querySelector(".dog").style.transition = "opacity 0.5s";
-        document.querySelector(".dog").style.opacity = "0.5";
-        document.querySelector(".cat").style.opacity = "1";
-        selectedPet = "cat";
-      });
-
-      document.querySelector(".dog").addEventListener("click", function () {
-        document.querySelector(".cat").style.transition = "opacity 0.5s";
-        document.querySelector(".cat").style.opacity = "0.5";
-        document.querySelector(".dog").style.opacity = "1";
-        selectedPet = "dog";
-      });
-
-      document
-        .getElementById("generateButton")
-        .addEventListener("click", function () {
-          confetti({
-            particleCount: 100,
-            spread: 70,
-            origin: { y: 0.6 },
-          });
-
-          // Collect form data
-          const formData = new FormData(
-            document.getElementById("descriptionForm")
-          );
-          const data = {};
-          formData.forEach((value, key) => {
-            if (data[key]) {
-              if (!Array.isArray(data[key])) {
-                data[key] = [data[key]];
-              }
-              data[key].push(value);
-            } else {
-              data[key] = value;
-            }
-          });
-
-          // Add selected pet to data
-          data.selectedPet = selectedPet;
-
-          // Save data to localStorage
-          localStorage.setItem("formData", JSON.stringify(data));
-        });
-    </script>
   </body>
 </html>

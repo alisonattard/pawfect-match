@@ -4,14 +4,68 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Customer View</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/styles.css') }}"
+    />
+    <script type="module">
+      // Import the functions you need from the SDKs you need
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+      import {
+        getDatabase,
+        ref,
+        query,
+        limitToLast,
+        get,
+      } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
+
+      // Your web app's Firebase configuration
+      const firebaseConfig = {
+        apiKey: "AIzaSyBGC1w5CI59ZwR4ueKHUXJ792fqm4XAgGE",
+        authDomain: "padawans-9bae0.firebaseapp.com",
+        databaseURL:
+          "https://padawans-9bae0-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "padawans-9bae0",
+        storageBucket: "padawans-9bae0.appspot.com",
+        messagingSenderId: "570564755420",
+        appId: "1:570564755420:web:fd7f79aa11560a3fb79919",
+        measurementId: "G-CR67JNKHGD",
+      };
+
+      // Initialize Firebase
+      const app = initializeApp(firebaseConfig);
+      const database = getDatabase(app);
+
+      document.addEventListener("DOMContentLoaded", async function () {
+        const dbRef = ref(database, "formData");
+        const recentDataQuery = query(dbRef, limitToLast(1));
+        const snapshot = await get(recentDataQuery);
+
+        if (snapshot.exists()) {
+          const data = snapshot.val();
+          const latestEntry = Object.values(data)[0];
+          document.getElementById("customerData").textContent = JSON.stringify(
+            latestEntry,
+            null,
+            2
+          );
+        } else {
+          document.getElementById("customerData").textContent =
+            "No data available.";
+        }
+      });
+    </script>
   </head>
   <body>
     <nav>
       <ul class="nav-list">
         <li>
           <a class="navtitle">
-            The Pawfect Match <img class="paw" src="{{ url_for('static', filename='images/paw.png') }}" />
+            The Pawfect Match
+            <img
+              class="paw"
+              src="{{ url_for('static', filename='images/paw.png') }}"
+            />
           </a>
         </li>
         <li><a class="navtext" href="{{ url_for('home') }}">Home</a></li>
@@ -24,20 +78,5 @@
       <h2>Customer Data</h2>
       <pre id="customerData"></pre>
     </div>
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const data = localStorage.getItem("formData");
-        if (data) {
-          document.getElementById("customerData").textContent = JSON.stringify(
-            JSON.parse(data),
-            null,
-            2
-          );
-        } else {
-          document.getElementById("customerData").textContent =
-            "No data available.";
-        }
-      });
-    </script>
   </body>
 </html>
