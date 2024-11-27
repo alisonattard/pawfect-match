@@ -14,7 +14,7 @@ import requests
 app = Flask(__name__)
 
 # Firebase setup
-cred = credentials.Certificate("firebase-key.json")  # Replace with the actual file name if different
+cred = credentials.Certificate("FIREBASE_KEY")  # Replace with the actual file name if different
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 
