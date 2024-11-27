@@ -1,2 +1,8 @@
 flask
 firebase-admin
+requirements.txt
+torch
+torchvision
+pillow
+transformers
+openai-clip
