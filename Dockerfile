@@ -1,6 +1,8 @@
 # Use an official Python runtime as a base image
 FROM python:3.9-slim
 
+EXPOSE 5000
+
 # Set environment variables to prevent Python from writing .pyc files and buffering stdout
 ENV PYTHONUNBUFFERED 1
 
@@ -28,6 +30,10 @@ RUN pip install firebase_admin
 
 # Install Flask and other dependencies for image processing
 RUN pip install Flask Pillow torch
+
+COPY static /app/static
+
+COPY templates /app/templates
 
 # Copy the local model directory into the container
 COPY flan_t5_trained_model /app/flan_t5_model

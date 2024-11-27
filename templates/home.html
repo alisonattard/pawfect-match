@@ -8,7 +8,6 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='css/styles.css') }}"
     />
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.4.0/dist/confetti.browser.min.js"></script>
     <script type="module">
       // Import the functions you need from the SDKs you need
       import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
@@ -16,9 +15,10 @@
         getDatabase,
         ref,
         push,
+        get,
+        child,
       } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js";
 
-      // Your web app's Firebase configuration
       const firebaseConfig = {
         apiKey: "AIzaSyBGC1w5CI59ZwR4ueKHUXJ792fqm4XAgGE",
         authDomain: "padawans-9bae0.firebaseapp.com",
@@ -35,31 +35,25 @@
       const app = initializeApp(firebaseConfig);
       const database = getDatabase(app);
 
-      let selectedPet = null;
+      let pet = null;
 
       document.querySelector(".cat").addEventListener("click", function () {
         document.querySelector(".dog").style.transition = "opacity 0.5s";
         document.querySelector(".dog").style.opacity = "0.5";
         document.querySelector(".cat").style.opacity = "1";
-        selectedPet = "cat";
+        pet = "cat";
       });
 
       document.querySelector(".dog").addEventListener("click", function () {
         document.querySelector(".cat").style.transition = "opacity 0.5s";
         document.querySelector(".cat").style.opacity = "0.5";
         document.querySelector(".dog").style.opacity = "1";
-        selectedPet = "dog";
+        pet = "dog";
       });
 
       document
         .getElementById("generateButton")
-        .addEventListener("click", function () {
-          confetti({
-            particleCount: 100,
-            spread: 70,
-            origin: { y: 0.6 },
-          });
-
+        .addEventListener("click", async function () {
           // Collect form data
           const formData = new FormData(
             document.getElementById("descriptionForm")
@@ -77,10 +71,47 @@
           });
 
           // Add selected pet to data
-          data.selectedPet = selectedPet;
+          data.pet = pet;
 
           // Save data to Firebase
-          push(ref(database, "formData"), data);
+          const newRef = push(ref(database, "formData"), data);
+
+          // Fetch the form data from Firebase
+          const snapshot = await get(
+            child(ref(database), `formData/${newRef.key}`)
+          );
+          if (snapshot.exists()) {
+            const fetchedData = snapshot.val();
+            const list = [
+              fetchedData.pet,
+              fetchedData.age,
+              fetchedData.size,
+              fetchedData.gender,
+              fetchedData.characteristics,
+            ];
+
+            // Send the list to the /generate_description endpoint
+            const response = await fetch("/generate_description", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ prompt: list.join(", ") }),
+            });
+
+            const result = await response.json();
+            if (result.description) {
+              document.getElementById("generatedDescription").innerText =
+                result.description;
+            }
+          }
+
+          // Display notification
+          const notification = document.getElementById("notification");
+          notification.style.display = "block";
+          setTimeout(() => {
+            notification.style.display = "none";
+          }, 3000);
         });
     </script>
   </head>
@@ -98,7 +129,7 @@
         </li>
         <li><a class="navtext" href="{{ url_for('home') }}">Home</a></li>
         <li>
-          <a class="navtext" href="{{ url_for('customer') }}">Customer View</a>
+          <a class="navtext" href="{{ url_for('view') }}">Saved Descriptions</a>
         </li>
       </ul>
     </nav>
@@ -116,6 +147,13 @@
         />
       </div>
       <form id="descriptionForm">
+        <label class="inputtitle" for="imageUpload">Upload an image:</label>
+        <input
+          type="file"
+          id="imageUpload"
+          name="imageUpload"
+          accept="image/*"
+        />
         <label class="inputtitle" for="descriptionInput"
           >Add keywords or description:</label
         >
@@ -133,18 +171,26 @@
           placeholder="Name (optional)"
         />
         <div class="form-row">
-          <label class="selecttext" for="genderSelect">Gender:</label>
-          <select id="genderSelect" name="genderSelect">
+          <label class="selecttext" for="gender">Gender:</label>
+          <select id="gender" name="gender">
             <option value="male">Male</option>
             <option value="female">Female</option>
           </select>
-          <label class="selecttext" for="ageSelect">Age:</label>
-          <select id="ageSelect" name="ageSelect">
+          <label class="selecttext" for="age">Age:</label>
+          <select id="age" name="age">
             <option value="baby">Baby</option>
             <option value="young">Young</option>
             <option value="teen">Teen</option>
             <option value="adult">Adult</option>
             <option value="elder">Elder</option>
+          </select>
+
+          <label class="selecttext" for="size">Size:</label>
+          <select id="size" name="size">
+            <option value="Small">Small</option>
+            <option value="Medium">Medium</option>
+            <option value="Large">Large</option>
+            <option value="Extra Large">Extra Large</option>
           </select>
         </div>
         <fieldset>
@@ -220,8 +266,19 @@
             >
           </div>
         </fieldset>
-        <button type="button" id="generateButton">Generate Description</button>
+        <div class="button-container">
+          <button type="button" id="generateButton">
+            <a class="btntext">Generate Description</a>
+          </button>
+          <button>
+            <a class="viewbtntext" href="{{ url_for('view') }}"
+              >View Saved Descriptions</a
+            >
+          </button>
+        </div>
       </form>
+      <div id="notification" style="display: none">Description generated!</div>
+      <div id="generatedDescription" class="description-box"></div>
     </div>
   </body>
 </html>

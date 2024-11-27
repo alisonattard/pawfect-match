@@ -10,11 +10,10 @@ from huggingface_hub import login
 import numpy as np
 import requests
 
-# Initialize Flask app
-app = Flask(__name__)
+app = Flask(__name__, static_folder='static', template_folder='templates')
 
 # Firebase setup
-cred = credentials.Certificate("FIREBASE_KEY")  # Replace with the actual file name if different
+cred = credentials.Certificate("firebase-key.json")  # Replace with the actual file name if different
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 
@@ -53,9 +52,9 @@ def test_firebase():
 def home():
     return render_template('home.html')
 
-@app.route('/customer')
-def customer():
-    return render_template('customer.html')
+@app.route('/view')
+def view():
+    return render_template('view.html')
 
 @app.route('/predict_image_keywords', methods=['POST'])
 def predict_image_keywords():
@@ -140,4 +139,4 @@ def generate_description(keywords):
     return description
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000)
